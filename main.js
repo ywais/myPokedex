@@ -10,15 +10,25 @@ const searchPokemon = async (pokemonId) => {
 searchButton.addEventListener('click', () => {searchPokemon(searchInput.value)});
 
 function addFoundPokemon(pokeData) {
-    const htmlText = `
+    let htmlText = `
       <div class="pokemonContainer">
         <div>Name: ${pokeData.name}</div>
-        <div>height: ${pokeData.height}</div>
-        <div>weight: ${pokeData.weight}</div>
-        <div>picture: <br> <img src="${pokeData.sprites.front_default}"
+        <div>Height: ${pokeData.height}</div>
+        <div>Weight: ${pokeData.weight}</div>
+        <div>Picture: <br><img src="${pokeData.sprites.front_default}"
           onmouseover="src='${pokeData.sprites.back_default}'"
           onmouseout="src='${pokeData.sprites.front_default}'"/></div>
       </div>
     `;
+    htmlText = addTypesList(pokeData, htmlText);
     resultsDiv.innerHTML = htmlText;
+}
+
+function addTypesList(fullData, dataText) {
+  dataText += `<div>Types: <br><ul>`;
+  fullData.types.forEach(type => {
+    dataText += `<li>${type.type.name}</li>`;
+  });
+  dataText += `</ul></div>`;
+  return dataText;
 }
