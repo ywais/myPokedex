@@ -1,7 +1,9 @@
+// getting document elements
 const searchInput = document.querySelector('#search'),
       searchButton = document.querySelector('#searchButton'),
       resultsDiv = document.querySelector('#results');
 
+// data for pokemon search
 const searchPokemon = async (pokemonId) => {
     try {
       const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -11,8 +13,10 @@ const searchPokemon = async (pokemonId) => {
     }
 };    
 
+// when clicking on searchButton
 searchButton.addEventListener('click', () => {searchPokemon(searchInput.value)});
 
+// add pokemon data to page context
 function addFoundPokemon(pokeData) {
   let htmlText = `
   <div class="pokemonContainer">
@@ -21,17 +25,19 @@ function addFoundPokemon(pokeData) {
   <div>Weight: ${pokeData.weight}</div>
   <div>Picture: <br><img src="${pokeData.sprites.front_default}"
   `;
-  if(pokeData.sprites.back_default) {
+  if(pokeData.sprites.back_default) { // only if has back photo
     htmlText += ` 
         onmouseover="src='${pokeData.sprites.back_default}'"
         onmouseout="src='${pokeData.sprites.front_default}'"
       `;
   }
-  htmlText += `/></div></div>`
+  htmlText += `/></div>`;
   htmlText = addTypesList(pokeData, htmlText);
+  htmlText += `</div>`;
   resultsDiv.innerHTML = htmlText;
 }
 
+// add the types to the pokemon data
 function addTypesList(fullData, dataText) {
   dataText += `<div>Types: <br><ul>`;
   fullData.types.forEach(type => {
@@ -41,6 +47,7 @@ function addTypesList(fullData, dataText) {
   return dataText;
 }
 
+// data for pokemon search per type, append mini list
 const searchTypesPokemon = async (typeName) => {
   const { data } = await axios.get(`http://pokeapi.co/api/v2/type/${typeName}`);
   const type = document.querySelector(`#${typeName}`);
@@ -49,6 +56,7 @@ const searchTypesPokemon = async (typeName) => {
   }
 };    
 
+// add pokemon names to type list
 function addTypesPokemons(typeData, event) {
   let pokeList = document.createElement('ul');
   typeData.pokemon.forEach(pokemon => {
@@ -57,6 +65,7 @@ function addTypesPokemons(typeData, event) {
   return pokeList;
 }
 
+// data for a new pokemon from type list 
 const showTypedPokemon = async (pokemonName) => {
     const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     searchInput.value = data.id;
