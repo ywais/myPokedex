@@ -3,8 +3,12 @@ const searchInput = document.querySelector('#search'),
       resultsDiv = document.querySelector('#results');
 
 const searchPokemon = async (pokemonId) => {
-    const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-    addFoundPokemon(data);
+    try {
+      const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+      addFoundPokemon(data);
+    } catch {
+      resultsDiv.innerHTML = "Pokemon not found";
+    }
 };    
 
 searchButton.addEventListener('click', () => {searchPokemon(searchInput.value)});
