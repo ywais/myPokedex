@@ -15,7 +15,9 @@ function addFoundPokemon(pokeData) {
         <div>Name: ${pokeData.name}</div>
         <div>height: ${pokeData.height}</div>
         <div>weight: ${pokeData.weight}</div>
-        <div>picture: <img src="${pokeData.sprites.front_default}" /></div>
+        <div>picture: <br> <img src="${pokeData.sprites.front_default}"
+          onmouseover="src='${pokeData.sprites.back_default}'"
+          onmouseout="src='${pokeData.sprites.front_default}'"/></div>
       </div>
     `;
     resultsDiv.innerHTML = htmlText;
