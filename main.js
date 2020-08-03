@@ -10,7 +10,7 @@ const searchPokemon = async (pokemonId) => {
 searchButton.addEventListener('click', () => {searchPokemon(searchInput.value)});
 
 function addFoundPokemon(pokeData) {
-    let htmlText = `
+  let htmlText = `
       <div class="pokemonContainer">
         <div>Name: ${pokeData.name}</div>
         <div>Height: ${pokeData.height}</div>
@@ -44,7 +44,13 @@ const searchTypesPokemon = async (typeName) => {
 function addTypesPokemons(typeData, event) {
   let pokeList = document.createElement('ul');
   typeData.pokemon.forEach(pokemon => {
-    pokeList.innerHTML += `<li>${pokemon.pokemon.name}</li>`;
+    pokeList.innerHTML += `<li id='${pokemon.pokemon.name}' onclick="showTypedPokemon('${pokemon.pokemon.name}')">${pokemon.pokemon.name}</li>`;
   });
   return pokeList;
 }
+
+const showTypedPokemon = async (pokemonName) => {
+    const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    searchInput.value = data.id;
+    addFoundPokemon(data);
+};
