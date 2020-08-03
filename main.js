@@ -31,16 +31,17 @@ function addFoundPokemon(pokeData) {
   <div class="pokemonContainer">
   <div>Name: ${pokeData.name}</div>
   <div>Height: ${pokeData.height}</div>
-  <div>Weight: ${pokeData.weight}</div>
-  <div>Picture: <br><img src="${pokeData.sprites.front_default}"
-  `;
-  if(pokeData.sprites.back_default) { // only if has back photo
-    htmlText += ` 
-        onmouseover="src='${pokeData.sprites.back_default}'"
-        onmouseout="src='${pokeData.sprites.front_default}'"
-      `;
+  <div>Weight: ${pokeData.weight}</div>`;
+  if(pokeData.sprites.front_default) { // only if has front photo
+    htmlText += `<div>Picture: <br><img alt="${pokeData.name}" src="${pokeData.sprites.front_default}"`;
+    if(pokeData.sprites.back_default) { // only if has back photo
+      htmlText += ` 
+          onmouseover="src='${pokeData.sprites.back_default}'"
+          onmouseout="src='${pokeData.sprites.front_default}'"
+        `;
+    }
+    htmlText += `/></div>`;
   }
-  htmlText += `/></div>`;
   htmlText = addTypesList(pokeData, htmlText);
   htmlText += `</div>`;
   resultsDiv.innerHTML = htmlText;
