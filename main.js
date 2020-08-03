@@ -16,6 +16,15 @@ const searchPokemon = async (pokemonId) => {
 // when clicking on searchButton
 searchButton.addEventListener('click', () => {searchPokemon(searchInput.value)});
 
+// when pressing Enter in the input
+searchInput.addEventListener('keyup', enterFoundPokemon);
+
+function enterFoundPokemon(event) {
+  if(event.keyCode === 13) {
+    searchPokemon(searchInput.value);
+  }
+}
+
 // add pokemon data to page context
 function addFoundPokemon(pokeData) {
   let htmlText = `
