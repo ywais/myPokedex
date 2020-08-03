@@ -27,8 +27,24 @@ function addFoundPokemon(pokeData) {
 function addTypesList(fullData, dataText) {
   dataText += `<div>Types: <br><ul>`;
   fullData.types.forEach(type => {
-    dataText += `<li>${type.type.name}</li>`;
+    dataText += `<li id='${type.type.name}' onclick="searchTypesPokemon('${type.type.name}')">${type.type.name}</li>`;
   });
   dataText += `</ul></div>`;
   return dataText;
+}
+
+const searchTypesPokemon = async (typeName) => {
+  const { data } = await axios.get(`http://pokeapi.co/api/v2/type/${typeName}`);
+  const type = document.querySelector(`#${typeName}`);
+  if(type.childElementCount === 0) {
+    type.appendChild(addTypesPokemons(data));
+  }
+};    
+
+function addTypesPokemons(typeData, event) {
+  let pokeList = document.createElement('ul');
+  typeData.pokemon.forEach(pokemon => {
+    pokeList.innerHTML += `<li>${pokemon.pokemon.name}</li>`;
+  });
+  return pokeList;
 }
