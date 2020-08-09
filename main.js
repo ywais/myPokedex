@@ -67,7 +67,7 @@ const searchTypesPokemon = async (typeName) => {
 };    
 
 // add pokemon names to type list
-function addTypesPokemons(typeData, event) {
+function addTypesPokemons(typeData) {
   let pokeList = document.createElement('ul');
   typeData.pokemon.forEach(pokemon => {
     pokeList.innerHTML += `<li id='${pokemon.pokemon.name}' onclick="showTypedPokemon('${pokemon.pokemon.name}')">${pokemon.pokemon.name}</li>`;
@@ -75,9 +75,19 @@ function addTypesPokemons(typeData, event) {
   return pokeList;
 }
 
-// data for a new pokemon from type list 
-const showTypedPokemon = async (pokemonName) => {
-    const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-    searchInput.value = data.id;
-    addFoundPokemon(data);
+// // data for a new pokemon from type list ------ axios
+// const showTypedPokemon = async (pokemonName) => {
+//     const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+//     searchInput.value = data.id;
+//     addFoundPokemon(data);
+// };
+
+// data for a new pokemon from type list ------ fetch
+const showTypedPokemon = async pokemonName => {
+    return await fetch(`http://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    .then(res => res.json())
+    .then(data => {
+      searchInput.value = data.id;
+      addFoundPokemon(data);
+    });
 };
