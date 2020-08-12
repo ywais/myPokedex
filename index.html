@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
+    <style>
+      li li:hover {
+        font-weight: bold;
+      }
+      li:hover {
+        list-style-type: circle;
+      }
+    </style>
 </head>
 <body>
-  <input id="search" /><button id="searchButon">Search</button>
+  <h1>My Pokedex</h1>
+  <input id="search" placeholder="Search by ID or name..."/><button id="searchButton">Search</button>
   <div id="results">
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- todo later: use a local copy installed via npm -->
