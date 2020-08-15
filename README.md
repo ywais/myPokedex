@@ -1,7 +1,5 @@
 # myPokedex
 
-## Pokedex Exercise
-
 ### Tasks
 * Show Pockemon name height weight and image on search id
 * Make the image change to back_default on hover
